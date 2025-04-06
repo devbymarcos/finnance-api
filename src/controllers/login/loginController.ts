@@ -8,15 +8,9 @@ import { dataReturn } from "../../helpers/functions.js";
 dotenv.config();
 
 export const loginAuth = async (req: Request, res: Response) => {
-    const userObj = {
-        id: 0,
-        first_name: "",
-        last_name: "",
-        password: "",
-        email: req.body.email,
-    };
-
-    const user = new User(userObj);
+    const user = new User();
+    user.setPassword(req.body.password);
+    user.setEmail(req.body.email);
     const data = await user.hasEmail();
     if (!data) {
         res.json(
@@ -35,7 +29,7 @@ export const loginAuth = async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign(
-        { id: data.id, email: user.email },
+        { id: data.id, email: user.getEmail() },
         String(process.env.SECRET_KEY_JWT),
         {
             expiresIn: 86400,

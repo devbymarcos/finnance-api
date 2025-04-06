@@ -62,6 +62,9 @@ class Wallet {
                     id: this.id,
                 },
             });
+            if (!wallet) {
+                return false;
+            }
             return true;
         } catch (err) {
             console.log(err);
@@ -96,7 +99,7 @@ class Wallet {
         try {
             const wallet = await prisma.app_wallet.create({
                 data: {
-                    user_id: this.user_id,
+                    user_id: Number(this.user_id),
                     name: this.name,
                     description: this.description,
                     option_wallet: this.option_wallet,

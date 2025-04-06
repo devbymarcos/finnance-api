@@ -1,12 +1,19 @@
 import { Request, Response } from "express";
-import ReportModel from "../../models/report-model/ReportModel";
+import SumCategoryToMonth from "../../models/report-model/SumCategoryToMonth";
 import { dataReturn } from "../../helpers/functions.js";
 
 export const cashFlowOnCategory = async (req: Request, res: Response) => {
-    const wallet_id:string = String(req.query.walletId)
+    const wallet_id: string = String(req.query.walletId);
+    const incomeObj = new SumCategoryToMonth();
+    incomeObj.setWalletId(wallet_id);
+    incomeObj.setTypeInvoice("income");
+    const expenseObj = new SumCategoryToMonth();
+    expenseObj.setWalletId(wallet_id);
+    expenseObj.setTypeInvoice("expense");
+
     const [income, expense] = await Promise.all([
-        ReportModel.sumCategoryGroup(wallet_id, "income"),
-        ReportModel.sumCategoryGroup(wallet_id, "expense"),
+        incomeObj.execute(),
+        expenseObj.execute(),
     ]);
 
     const dataReport = {
@@ -14,5 +21,4 @@ export const cashFlowOnCategory = async (req: Request, res: Response) => {
         expense: expense,
     };
     res.json(dataReturn(dataReport, "/report", ""));
-    //TODO CONTINUAR AQUI
 };

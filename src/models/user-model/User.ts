@@ -1,29 +1,49 @@
 import { prisma } from "../../database/prismaClient.js";
 import bcryptjs from "bcryptjs";
-import { UserTypes } from "./types";
 
 class User {
-    id;
-    first_name;
-    last_name;
-    email;
-    password;
-    photo;
+    private id!: number;
+    private first_name!: string;
+    private last_name!: string;
+    private email!: string;
+    private password!: string;
+    private photo!: string;
 
-    constructor({
-        id,
-        first_name,
-        last_name,
-        email,
-        password,
-        photo,
-    }: UserTypes) {
-        this.id = id || undefined;
-        this.first_name = first_name || undefined;
-        this.last_name = last_name || undefined;
-        this.email = email || undefined;
+    public setId(id: number) {
+        this.id = id;
+    }
+    public setFirstName(first_name: string) {
+        this.first_name = first_name;
+    }
+    public setLastName(last_name: string) {
+        this.last_name = last_name;
+    }
+    public setEmail(email: string) {
+        this.email = email;
+    }
+    public setPassword(password: string) {
         this.password = password;
-        this.photo = photo || "default";
+    }
+    public setPhoto(photo: string) {
+        this.photo = photo;
+    }
+    public getId() {
+        return this.id;
+    }
+    public getFirstName() {
+        return this.first_name;
+    }
+    public getLastName() {
+        return this.last_name;
+    }
+    public getEmail() {
+        return this.email;
+    }
+    public getPassword() {
+        return this.password;
+    }
+    public getPhoto() {
+        return this.photo;
     }
 
     async findById() {
@@ -130,7 +150,7 @@ class User {
         }
     }
 
-    async cryptpass() {
+    private async cryptpass() {
         const passwordCrypt = await bcryptjs.hash(this.password, 10);
         return passwordCrypt;
     }

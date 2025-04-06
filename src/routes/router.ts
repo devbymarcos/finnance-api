@@ -46,7 +46,7 @@ router.delete("/invoice/:id", Auth.privateRouter, InvoiceController.remove);
 router.post("/transfer", Auth.privateRouter, InvoiceController.transfers);
 //REPORTS
 router.get(
-    "/category-flow",
+    "/categoryflow",
     Auth.privateRouter,
     ReportController.cashFlowOnCategory
 );

@@ -135,7 +135,7 @@ class Wallet {
             return dataReturn(wallet, true, "Requisição realizada com sucesso");
         } catch (err) {
             console.log(err);
-            return dataReturn(null, false, "Error or not found");
+            return dataReturn(null, false, "Erro na requisição");
         } finally {
             prisma.$disconnect();
         }

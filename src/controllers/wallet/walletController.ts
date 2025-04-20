@@ -16,6 +16,7 @@ export const walletCreate = async (req: Request, res: Response) => {
     wallet.setDescription(req.body.description);
     wallet.setOptionWallet(parseInt(req.body.option_wallet));
     const data = await wallet.register();
+
     res.json(data);
 };
 

@@ -27,6 +27,24 @@ class User {
     public setPhoto(photo: string) {
         this.photo = photo;
     }
+    public getId() {
+        return this.id;
+    }
+    public getFirstName() {
+        return this.first_name;
+    }
+    public getLastName() {
+        return this.last_name;
+    }
+    public getEmail() {
+        return this.email;
+    }
+    public getPassword() {
+        return this.password;
+    }
+    public getPhoto() {
+        return this.photo;
+    }
 
     async findById() {
         try {

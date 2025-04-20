@@ -29,7 +29,6 @@ export const walletUniq = async (req: Request, res: Response) => {
 
 export const walletUpdate = async (req: Request, res: Response) => {
     const wallet = new Wallet();
-
     wallet.setId(parseInt(req.params.id));
     wallet.setUserId(res.locals.userAuth.id);
     wallet.setName(req.body.name);

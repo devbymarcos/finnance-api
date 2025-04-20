@@ -3,39 +3,28 @@ import { dataReturn } from "../../helpers/functions.js";
 import { Request, Response } from "express";
 
 export const getUser = async (req: Request, res: Response) => {
-    const userObj = {
-        id: res.locals.userAuth.id,
-        first_name: "",
-        last_name: "",
-        email: "",
-        password: "",
-    };
-    const user = new User(userObj);
+    const user = new User();
+    user.setId(res.locals.userAuth.id);
     const data = await user.findById();
     res.json(dataReturn(data, "user"));
 };
 export const registerUser = async (req: Request, res: Response) => {
-    const userObj = {
-        id: undefined,
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
-        password: req.body.password,
-    };
-    const user = new User(userObj);
+    const user = new User();
+    user.setFirstName(req.body.first_name);
+    user.setLastName(req.body.last_name);
+    user.setEmail(req.body.email);
+    user.setPassword(req.body.password);
     const data = await user.register();
     res.json(dataReturn(data, "user"));
 };
 
 export const updateUser = async (req: Request, res: Response) => {
-    const userObj = {
-        id: res.locals.userAuth.id,
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
-        password: "",
-    };
-    const user = new User(userObj);
+    const user = new User();
+    user.setId(res.locals.userAuth.id);
+    user.setFirstName(req.body.first_name);
+    user.setLastName(req.body.last_name);
+    user.setEmail(req.body.email);
+    user.setPassword("");
     const data = await user.update();
     res.json(dataReturn([data], "user"));
 };
@@ -48,7 +37,7 @@ export const updatePassword = async (req: Request, res: Response) => {
         email: "",
         password: req.body.password,
     };
-    const user = new User(userObj);
+    const user = new User();
     const data = await user.updatePass();
     res.json(dataReturn(data, "/user"));
 };

@@ -14,7 +14,7 @@ export const walletCreate = async (req: Request, res: Response) => {
     wallet.setUserId(res.locals.userAuth.id);
     wallet.setName(req.body.name);
     wallet.setDescription(req.body.description);
-    wallet.setOptionWallet(parseInt(req.body.option_wallet));
+    wallet.setOptionWallet(0);
     const data = await wallet.register();
 
     res.json(data);
